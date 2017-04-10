@@ -1,16 +1,4 @@
-# Mac OS
-.DS_Store
-
-# npm
+dist
 node_modules
+yarn.lock
 npm-debug.log
-
-# bower
-bower_components
-
-# folder
-dist*
-_dist*
-
-# vscode
-.vscode

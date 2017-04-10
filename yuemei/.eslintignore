@@ -1,3 +1,1 @@
-**/node_modules
-server.js
-webpack.*.js
+src/**/*-test.js
