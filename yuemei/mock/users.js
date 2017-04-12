@@ -1,17 +1,25 @@
 const qs = require('qs')
 const Mock = require('mockjs')
-import mockStorge from '../src/utils/mockStorge'
+// import mockStorge from '../src/utils/mockStorge'
 
-let dataKey = mockStorge('UsersList', Mock.mock({
+let usersListData = Mock.mock({
   'data|100': [
     {
       'id|+1': 1,
       name: '@cname',
       nickName: '@last',
       phone: /^1[34578]\d{9}$/,
-      'age|11-99': 1,
+      'age|19-35': 1,
+      'weight|40-80': 1,
+      orderTime: '@datetime',
       address: '@county(true)',
-      isMale: '@boolean',
+      'comefrom|1': [
+        '美团',
+        '大众点评',
+        '其它',
+      ],
+      'balance|100-4000': 1,
+      isMale: false,
       email: '@email',
       createTime: '@datetime',
       avatar () {
@@ -23,9 +31,7 @@ let dataKey = mockStorge('UsersList', Mock.mock({
     total: 100,
     current: 1,
   },
-}))
-
-let usersListData = global[dataKey]
+})
 
 module.exports = {
 

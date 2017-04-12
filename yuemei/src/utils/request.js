@@ -49,13 +49,18 @@ const fetch = (options) => {
 }
 
 export default function request (options) {
+  // 判断url是否为空，是否有http://头
   if (options.url && options.url.indexOf('//') > -1) {
+    // 取得主机名协议名与端口号
     const origin = `${options.url.split('//')[0]}//${options.url.split('//')[1].split('/')[0]}`
+    // 判断是否同域
     if (window.location.origin !== origin) {
       if (CORS && CORS.indexOf(origin) > -1) {
         options.fetchType = 'CORS'
+        // 判断url里面是否是YQL读取方式，如果是config里面拿到地址，从最美天气拿数据
       } else if (YQL && YQL.indexOf(origin) > -1) {
         options.fetchType = 'YQL'
+        // JSONP拿数据
       } else {
         options.fetchType = 'JSONP'
       }
@@ -64,6 +69,7 @@ export default function request (options) {
 
   return fetch(options).then((response) => {
     const { statusText, status } = response
+    // 若是YQL方式，拿到数据，统一返回格式
     let data = options.fetchType === 'YQL' ? response.data.query.results.json : response.data
     return {
       code: 0,

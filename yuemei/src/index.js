@@ -9,7 +9,7 @@ const app = dva({
   ...createLoading(),
   history: browserHistory,
   onError (error) {
-    console.error('app onError -- ', error)
+    console.warn('app onError -- ', error)
   },
 })
 
