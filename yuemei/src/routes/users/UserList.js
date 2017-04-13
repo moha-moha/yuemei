@@ -4,6 +4,7 @@ import styles from './UserList.less'
 import classnames from 'classnames'
 import AnimTableBody from '../../components/DataTable/AnimTableBody'
 import { DropOption } from '../../components'
+import moment from 'moment'
 
 
 const confirm = Modal.confirm
@@ -36,9 +37,9 @@ function list ({ loading, dataSource, pagination, onPageChange, onDeleteItem, on
       key: 'name',
     }, {
       title: '年龄',
-      dataIndex: 'age',
-      key: 'age',
-      render: (text) => <span>{text}岁</span>,
+      dataIndex: 'birthday',
+      key: 'birthday',
+      render: (text) => <span>{moment(text).fromNow(true).split(' ')[0]}岁</span>,
     }, {
       title: '电话',
       dataIndex: 'phone',
@@ -49,14 +50,14 @@ function list ({ loading, dataSource, pagination, onPageChange, onDeleteItem, on
       key: 'orderTime',
       render: (text) => <span>{text}</span>,
     }, {
+      title: '剩余次数',
+      dataIndex: 'balance',
+      key: 'balance',
+      render: (text) => <Tag color={text <= 3 ? 'orange' : 'blue'}>剩余{text}次</Tag>,
+    }, {
       title: '住址(小区)',
       dataIndex: 'address',
       key: 'address',
-    }, {
-      title: '剩余金额',
-      dataIndex: 'balance',
-      key: 'balance',
-      render: (text) => <Tag color={text < 500 ? 'orange' : 'blue'}>剩余{text}元</Tag>,
     }, {
       title: '客户来源',
       dataIndex: 'comefrom',
@@ -65,8 +66,9 @@ function list ({ loading, dataSource, pagination, onPageChange, onDeleteItem, on
       title: '操作',
       key: 'operation',
       width: 100,
+      fixed: 'right',
       render: (text, record) => {
-        return <DropOption onMenuClick={e => handleMenuClick(record, e)} menuOptions={[{ key: '1', name: '详细' }, { key: '2', name: '删除' }]} />
+        return <DropOption onMenuClick={e => handleMenuClick(record, e)} menuOptions={[{ key: '1', name: '修改信息' }, { key: '2', name: '删除用户' }]} />
       },
     },
   ]
@@ -91,6 +93,7 @@ function list ({ loading, dataSource, pagination, onPageChange, onDeleteItem, on
         simple
         rowKey={record => record.id}
         getBodyWrapper={getBodyWrapper}
+        scroll={{ x: 1200 }}
       />
     </div>
   )
@@ -102,6 +105,7 @@ list.propTypes = {
   pagination: PropTypes.object,
   onPageChange: PropTypes.func,
   onDeleteItem: PropTypes.func,
+  onDetailItem: PropTypes.func,
   onEditItem: PropTypes.func,
   location: PropTypes.object,
 }

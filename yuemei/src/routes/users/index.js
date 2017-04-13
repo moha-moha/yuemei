@@ -5,8 +5,9 @@ import UserList from './UserList'
 import UserFilter from './UserFilter'
 import UserModal from './UserModal'
 
+
 function Users ({ location, dispatch, users, loading }) {
-  const { list, pagination, currentItem, modalVisible, modalType, isMotion } = users
+  const { list, pagination, currentItem, modalVisible, modalType } = users
   const { field, keyword } = location.query
 
   const userModalProps = {
@@ -31,7 +32,6 @@ function Users ({ location, dispatch, users, loading }) {
     loading,
     pagination,
     location,
-    isMotion,
     onPageChange (page) {
       const { query, pathname } = location
       dispatch(routerRedux.push({
@@ -63,7 +63,6 @@ function Users ({ location, dispatch, users, loading }) {
   const userFilterProps = {
     field,
     keyword,
-    isMotion,
     onSearch (fieldsValue) {
       fieldsValue.keyword.length ? dispatch(routerRedux.push({
         pathname: '/users',
@@ -82,9 +81,6 @@ function Users ({ location, dispatch, users, loading }) {
           modalType: 'create',
         },
       })
-    },
-    switchIsMotion () {
-      dispatch({ type: 'users/switchIsMotion' })
     },
   }
 
